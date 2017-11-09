@@ -1,7 +1,0 @@
-读写Map是根据Object.hashcode()来确定从table[i]读/写，而Object.hashcode()是native方法, 不同的JVM里可能是不一样的。
-比如向HashMap存一个键值对entry, key为字符串"wangqi", 在第一个java程序里, "wangqi"的hashcode()为1, 存入table[1]；
-在另一个JVM程序里, "wangqi" 的hashcode()有可能就是2, 存入table[2]。如果用默认的串行化(Entry[] table不用transient),
-那么这个HashMap从第一个java程序里通过串行化导入第二个JVM环境之后, 其内存分布是不一样的. 这就不对了。 HashMap现在的
-readObject和writeObject是把内容输出/输入, 把HashMap重新生成出来。
-另外因为 HashMap中的存储数据的数组数据成员中，数组还有很多的空间没有被使用，没有被使用到的空间被序列化没有意义。所以需要手动使用
-writeObject()方法，只序列化实际存储元素的数组。
