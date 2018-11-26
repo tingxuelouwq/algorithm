@@ -38,22 +38,19 @@ public class MyLinkedList<E> implements Iterable<E> {
 	public boolean isEmpty() {
 		return size() == 0;
 	}
-	
-	public void clear() {
-		currentSize = 0;
-		modCount = 0;
-		
-		for(Node<E> p = beginMarker.next; p != endMarker;) {
-			Node<E> x = p.next;
-			p.data = null;
-			p.prev = null;
-			p.next = null;
-			p = x;
-		}
-		
-		beginMarker.next = endMarker;
-		endMarker.prev = beginMarker;
-	}
+
+    public void clear() {
+        for (Node<E> p = beginMarker.next; p != endMarker; p = p.next) {
+            p.data = null;
+            p.prev = null;
+            p.next = null;
+        }
+
+        beginMarker.next = endMarker;
+        endMarker.prev = beginMarker;
+        currentSize = 0;
+        modCount++;
+    }
 	
 	public E getFirst() {
 		Node<E> first = beginMarker.next;
@@ -96,13 +93,12 @@ public class MyLinkedList<E> implements Iterable<E> {
 	}
 
 	public E get(int index) {
-		checkElement(index);
-		
+        checkElementIndex(index);
 		return getNode(index).data;
 	}
 	
 	public E set(int index, E e) {
-		checkElement(index);
+        checkElementIndex(index);
 		
 		Node<E> item = getNode(index);
 		E oldValue = item.data;
@@ -115,12 +111,12 @@ public class MyLinkedList<E> implements Iterable<E> {
 	}
 	
 	public void add(int index, E e) {
-		checkPosition(index);
+		checkPositionIndex(index);
 		linkBefore(getNode(index), e);
 	}
 	
 	public E remove(int index) {
-		checkPosition(index);
+        checkElementIndex(index);
 		return unlink(getNode(index));
 	}
 	
@@ -181,13 +177,13 @@ public class MyLinkedList<E> implements Iterable<E> {
 		}
 	}
 
-	private void checkPosition(int index) {
-		if(index < 0 || index > currentSize)
+	private void checkPositionIndex(int index) {
+		if(index > currentSize || index < 0)
 			throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 	}
 
-	private void checkElement(int index) {
-		if(index < 0 || index >= currentSize)
+	private void checkElementIndex(int index) {
+		if(index >= currentSize || index < 0)
 			throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 	}
 

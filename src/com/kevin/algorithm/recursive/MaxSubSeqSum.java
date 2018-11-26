@@ -47,7 +47,7 @@ public class MaxSubSeqSum {
 	}
 
 	private static int maxOfThree(int a, int b, int c) {
-		return a > b ? a : b > c ? b : c;
+        return a > b ? a > c ? a : c : b > c ? b : c;
 	}
 
 	private static void checkArray(int[] a) {
