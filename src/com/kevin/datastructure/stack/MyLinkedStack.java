@@ -42,6 +42,7 @@ public class MyLinkedStack<E> {
 			p.next = null;
 			p = x;
 		}
+		size = 0;
 	}
 	
 	public E top() {

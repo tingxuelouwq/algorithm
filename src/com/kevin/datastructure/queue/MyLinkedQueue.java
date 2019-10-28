@@ -41,6 +41,7 @@ public class MyLinkedQueue<E> {
 			p.next = null;
 			p = x;
 		}
+		size = 0;
 	}
 	
 	public void offer(E e) {
@@ -59,13 +60,13 @@ public class MyLinkedQueue<E> {
 			return null;
 		
 		Node<E> f = first;
-		E data = f.data;
 		Node<E> next = f.next;
+		E data = f.data;
 		f.data = null;
 		f.next = null;
 		first = next;
-		if(next == null)
-			last = null;
+		if(first == null)
+			last = first;
 		
 		size--;		
 		return data;

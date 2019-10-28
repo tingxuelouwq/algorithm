@@ -45,11 +45,13 @@ public class MyArrayQueue<E> {
 	}
 	
 	public void clear() {
-		for(int i = 0; i < size; i++)
-			array[i] = null;
-		
-		size = 0;
-		first = last = 0;
+        for (int i = first; i != last;) {
+            array[i] = null;
+            i = (i + 1) % array.length;
+        }
+        array[last] = null;
+        first = last = 0;
+        size = 0;
 	}
 	
 	public boolean offer(E e) {
